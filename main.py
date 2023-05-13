@@ -29,3 +29,27 @@ class NeuralNetwork:
     self.weights_ih += self.learning_rate * np.dot((hidden_errors * self.derivative_tanh(self.hidden)), input.T)
     self.bias_h += self.learning_rate * (hidden_errors * self.derivative_tanh(self.hidden))
 
+  def train(self, input, target):
+    input = np.array(input, ndmin=2).T
+    target = np.array(target, ndmin=2).T
+    self.forward(input)
+    self.backward(input, target)
+
+nn = NeuralNetwork()
+
+# Dummy input and target
+input = [0.5, -0.2]
+target = [0.1, -0.1]
+
+for i in range(10):
+  nn.train(input, target)
+  print(f"Iteration {i+1}")
+  print("Weights from input to hidden layer: ")
+  print(nn.weights_ih)
+  print("Weights from hidden to output layer: ")
+  print(nn.weights_ho)
+  print("Bias of hidden layer: ")
+  print(nn.bias_h)
+  print("Bias of output layer: ")
+  print(nn.bias_o)
+  print("\n")
